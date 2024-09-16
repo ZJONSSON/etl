@@ -50,14 +50,14 @@ fs.createReadStream('scores.csv')
 
 <a name="csv" href="#csv">#</a> etl.<b>csv</b>([<i>options</i>])
 
-Parses incoming csv text into individual records.  For parsing options see [csv-parser](https://www.npmjs.com/package/csv-parser).  If  `options` contains a `transform` object containing functions, those functions will be applied on the values of any matching keys in the data.  If a key in the `transform` object is set to `null` then value with that key will not be included in the downstream packets.  If option `santitize` is set to true, then headers will be trimmed, converted to lowercase, spaces converted to underscore and any blank values (empty strings) will be set to undefined.
+Parses incoming csv text into individual records.  For parsing options see [csv-parser](https://www.npmjs.com/package/csv-parser).  If  `options` contains a `transform` object containing functions, those functions will be applied on the values of any matching keys in the data.  If a key in the `transform` object is set to `null` then value with that key will not be included in the downstream packets.  If option `santitize` is set to true, then headers will be trimmed, converted to lowercase, spaces converted to underscore and any blank values (empty strings) will be set to undefined. The option `addLineNumbers` is `true` by default, if is set to `false` (boolean) the result won't have the `__line` numbers for each object.
 
 A `header` event will be emitted when headers have been parsed. An event listener can change the headers in-place before the stream starts piping out parsed data.
 
 Example
 
 ```js
-// Here the test.csv is parsed but field dt is converted to date.  Each packet will 
+// Here the test.csv is parsed but field dt is converted to date.  Each packet will
 // contain the following properties:  __filename, __path, __line and csv fields
 etl.file('test.csv')
   .pipe(etl.csv({
